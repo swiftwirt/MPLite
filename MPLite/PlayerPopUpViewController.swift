@@ -11,6 +11,8 @@ import AVFoundation
 
 class PlayerPopUpViewController: UIViewController {
     
+     var progressTimer = Timer()
+    
     @IBOutlet var superView: UIView!
     @IBOutlet weak var popupView: UIView!
     
@@ -22,13 +24,12 @@ class PlayerPopUpViewController: UIViewController {
     @IBOutlet weak var playBtn: UIBarButtonItem!
     @IBOutlet weak var rewind: UIBarButtonItem!
     @IBOutlet weak var fastforvard: UIBarButtonItem!
-    
-    
+
     var player: AVAudioPlayer!
     var searchResult: SearchResult!
     
     var downloadTask: URLSessionDownloadTask?
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .custom
@@ -42,7 +43,7 @@ class PlayerPopUpViewController: UIViewController {
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
-        superView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        superView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         coverImageView.layer.masksToBounds = true
         coverImageView.layer.cornerRadius = 8
         configureTrackInfoOutlets()
@@ -51,7 +52,7 @@ class PlayerPopUpViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let url = URL(string: searchResult.trackDownloadLink)
-        play(url: url!)
+        self.play(url: url!)
     }
     
     func configureTrackInfoOutlets() {
@@ -71,7 +72,7 @@ class PlayerPopUpViewController: UIViewController {
         time -= 5.0
         
         if time < 0 {
-            return
+            close()
         }else {
             player.currentTime = time
         }
@@ -82,7 +83,7 @@ class PlayerPopUpViewController: UIViewController {
         time += 5.0
         
         if time > player.duration {
-            return
+            close()
         } else {
             player.currentTime = time
         }
@@ -109,10 +110,10 @@ class PlayerPopUpViewController: UIViewController {
             let soundData = try! Data(contentsOf: url)
             self.player = try AVAudioPlayer(data: soundData)
             player.prepareToPlay()
-            player.volume = 0.10
+            player.volume = 1.0
             player.play()
             
-            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(PlayerPopUpViewController.updateProgressView), userInfo: nil, repeats: true)
+            progressTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(PlayerPopUpViewController.updateProgressView), userInfo: nil, repeats: true)
             progressView.setProgress(Float(player.currentTime/player.duration), animated: false)
             
             print("!!!playing\(url)")
@@ -125,6 +126,11 @@ class PlayerPopUpViewController: UIViewController {
         if player.isPlaying {
             progressView.setProgress(Float(player.currentTime/player.duration), animated: true)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        progressTimer.invalidate()
     }
 }
 

@@ -134,6 +134,11 @@ class SearchMusicViewController: UIViewController {
             } else {
                 print("No download url")
             }
+            if let searchResultNonOpt = resultDict["track_url"] as? String {
+                searchResult.trackStreamURL = searchResultNonOpt
+            } else {
+                print("No download url")
+            }
             if let searchResultNonOpt = resultDict["album_image_file"] as? String {
                 searchResult.albumImageLink += searchResultNonOpt
             } else {
