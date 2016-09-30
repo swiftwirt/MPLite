@@ -30,6 +30,7 @@
                     <constraint firstItem="wyB-IV-9ob" firstAttribute="centerY" secondItem="W8f-jT-SbZ" secondAttribute="centerY" id="vOs-zJ-HIn"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="31.5" y="31"/>
         </tableViewCell>
     </objects>

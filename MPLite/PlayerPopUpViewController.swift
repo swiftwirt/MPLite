@@ -20,6 +20,9 @@ class PlayerPopUpViewController: UIViewController {
     @IBOutlet weak var artistLabel: UILabel!
 
     var audioPlayer: AVAudioPlayer!
+    var searchResult: SearchResult!
+    
+    var downloadTask: URLSessionDownloadTask?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,9 +37,21 @@ class PlayerPopUpViewController: UIViewController {
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
-        superView.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
+        superView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         coverImageView.layer.masksToBounds = true
         coverImageView.layer.cornerRadius = 8
+        configureTrackInfoOutlets()
+    }
+    
+    func configureTrackInfoOutlets() {
+        if let searchResult = searchResult {
+            trackLabel.text = searchResult.track
+            artistLabel.text = searchResult.artist
+        }
+        if let url = URL(string: searchResult.albumImageLink) {
+            downloadTask = coverImageView.loadImageWithURL(url: url)
+            searchResult.coverImage = coverImageView.image
+        }
     }
 
     @IBAction func close() {

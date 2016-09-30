@@ -54,10 +54,11 @@ class SearchMusicViewController: UIViewController {
             requestURL = URL(string: "https://freemusicarchive.org/recent.json")
             performSearch(URL: requestURL)
         case 2:
-            requestURL = getURLfrom(searchText: searchBar.text!)
-            if !hasSearched {
-                performSearch(URL: requestURL)
-            }
+//            requestURL = getURLfrom(searchText: searchBar.text!)
+//            if !hasSearched {
+//                performSearch(URL: requestURL)
+//            }
+            hasSearched = false
             tableView.reloadData()
         default:
             return
@@ -162,6 +163,18 @@ class SearchMusicViewController: UIViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetail" {
+            let controller = segue.destination as! PlayerPopUpViewController
+            let indexPath = IndexPath(row: (sender! as AnyObject).tag!, section: 0)
+            controller.searchResult = searchResults[indexPath.row]
+        }
+    }
+    
+    @IBAction func play(_ sender: AnyObject) {
+        performSegue(withIdentifier: "ShowDetail", sender: sender)
+    }
 }
 
 extension SearchMusicViewController: UITableViewDataSource {
@@ -190,7 +203,8 @@ extension SearchMusicViewController: UITableViewDataSource {
             let searchResult = searchResults[indexPath.row]
             cell.albumLabel.text = searchResult.album
             cell.artistLabel.text = searchResult.artist
-            cell.trackLabel.text = searchResult.track 
+            cell.trackLabel.text = searchResult.track
+            cell.playBtn.tag = indexPath.row
             cell.configureImageForSearchResult(searchResult: searchResult)
             return cell
         }
@@ -201,11 +215,14 @@ extension SearchMusicViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "ShowDetail", sender: indexPath)
     }
       
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
     }
 }
 

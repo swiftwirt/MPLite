@@ -37,14 +37,11 @@ class TrackCell: UITableViewCell {
     
     func configureImageForSearchResult(searchResult: SearchResult) {
         trackLabel.text = searchResult.track
-        if searchResult.albumImageLink.isEmpty {
-           coverImageView.image = UIImage(named: "placeholder.png")
-        } else {
             if let url = URL(string: searchResult.albumImageLink) {
                 downloadTask = coverImageView.loadImageWithURL(url: url)
                 coverImageView.layer.masksToBounds = true
                 coverImageView.layer.cornerRadius = 5
-            }
+                searchResult.coverImage = coverImageView.image
         }
     }
 }

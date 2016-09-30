@@ -15,6 +15,7 @@ class SearchResult {
     var artist = ""
     var track = ""
     var trackDownloadLink = ""
+    var coverImage = UIImage(named: "placeholder.png")
     
     static func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.track.localizedStandardCompare(rhs.track) == .orderedAscending
