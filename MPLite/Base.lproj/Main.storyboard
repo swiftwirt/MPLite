@@ -33,7 +33,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pas-oM-jkr">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="KUa-mh-ktq"/>
+                                            <constraint firstAttribute="height" constant="23" id="KUa-mh-ktq"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -48,15 +48,22 @@
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="efG-7X-7uQ"/>
                                             <barButtonItem systemItem="rewind" id="rcG-p9-hVm">
-                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="COi-Ad-bkz"/>
+                                            <barButtonItem systemItem="pause" id="nO5-Nj-wMS">
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="tLx-Y6-NMk"/>
                                             <barButtonItem systemItem="play" id="Hjl-e2-OAF">
-                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <connections>
+                                                    <action selector="playSTOP:" destination="e9K-n5-EhL" id="85t-br-gWW"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="fji-SL-zAt"/>
                                             <barButtonItem systemItem="fastForward" id="Ydc-uE-5gT">
-                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="d6c-Ws-a2o"/>
                                         </items>
@@ -104,12 +111,16 @@
                             <constraint firstItem="OcG-Y2-j6P" firstAttribute="centerY" secondItem="ERy-RD-haZ" secondAttribute="centerY" id="foh-V2-E5L"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="artistLabel" destination="wWp-Qu-MH5" id="8SL-4E-EN5"/>
                         <outlet property="coverImageView" destination="hPo-D8-nip" id="33d-Wr-uoo"/>
-                        <outlet property="playerSubView" destination="OcG-Y2-j6P" id="eVB-cj-iCR"/>
+                        <outlet property="fastforvard" destination="Ydc-uE-5gT" id="M62-Mv-nAa"/>
+                        <outlet property="playBtn" destination="Hjl-e2-OAF" id="ZTr-mi-Ra4"/>
                         <outlet property="popupView" destination="OcG-Y2-j6P" id="C84-be-RIW"/>
                         <outlet property="progressView" destination="DAj-D1-DiF" id="q4A-Bp-pAp"/>
+                        <outlet property="rewind" destination="rcG-p9-hVm" id="gLC-Q1-Vnf"/>
                         <outlet property="superView" destination="ERy-RD-haZ" id="DWh-0n-B4b"/>
                         <outlet property="trackLabel" destination="pas-oM-jkr" id="DmH-fp-9Dr"/>
                     </connections>

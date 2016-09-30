@@ -41,7 +41,6 @@ class TrackCell: UITableViewCell {
                 downloadTask = coverImageView.loadImageWithURL(url: url)
                 coverImageView.layer.masksToBounds = true
                 coverImageView.layer.cornerRadius = 5
-                searchResult.coverImage = coverImageView.image
         }
     }
 }

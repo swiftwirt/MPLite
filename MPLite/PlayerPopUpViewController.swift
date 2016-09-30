@@ -12,14 +12,18 @@ import AVFoundation
 class PlayerPopUpViewController: UIViewController {
     
     @IBOutlet var superView: UIView!
-    @IBOutlet weak var playerSubView: UIView!
     @IBOutlet weak var popupView: UIView!
+    
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
-
-    var audioPlayer: AVAudioPlayer!
+    
+    @IBOutlet weak var playBtn: UIBarButtonItem!
+    @IBOutlet weak var rewind: UIBarButtonItem!
+    @IBOutlet weak var fastforvard: UIBarButtonItem!
+    
+    var player: AVAudioPlayer!
     var searchResult: SearchResult!
     
     var downloadTask: URLSessionDownloadTask?
@@ -43,6 +47,12 @@ class PlayerPopUpViewController: UIViewController {
         configureTrackInfoOutlets()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let url = URL(string: searchResult.trackDownloadLink)
+        play(url: url!)
+    }
+    
     func configureTrackInfoOutlets() {
         if let searchResult = searchResult {
             trackLabel.text = searchResult.track
@@ -50,12 +60,32 @@ class PlayerPopUpViewController: UIViewController {
         }
         if let url = URL(string: searchResult.albumImageLink) {
             downloadTask = coverImageView.loadImageWithURL(url: url)
-            searchResult.coverImage = coverImageView.image
         }
     }
 
     @IBAction func close() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func playSTOP(_ sender: AnyObject) {
+        if !player.isPlaying {
+            let url = URL(string: searchResult.trackDownloadLink)
+            play(url: url!)
+            playBtn = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: nil)
+        }
+    }
+    
+    func play(url:URL) {
+        do {
+            let soundData = try! Data(contentsOf: url)
+            self.player = try AVAudioPlayer(data: soundData)
+            player.prepareToPlay()
+            player.volume = 1.0
+            player.play()
+            print("!!!!!playing\(url)")
+        } catch {
+            print("Error getting the audio file")
+        }
     }
 }
 
