@@ -65,6 +65,8 @@ class SearchMusicViewController: UIViewController {
         }
     }
     
+    //Mark: - NETWORKING METHODS___________________________________________________________
+    
     func performSearch(URL: URL) {
         isLoading = true
         hasSearched = true
@@ -163,6 +165,8 @@ class SearchMusicViewController: UIViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
+    //Mark: - Segue___________________________________________________________________________
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {

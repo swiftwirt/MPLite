@@ -23,6 +23,7 @@ class PlayerPopUpViewController: UIViewController {
     @IBOutlet weak var rewind: UIBarButtonItem!
     @IBOutlet weak var fastforvard: UIBarButtonItem!
     
+    
     var player: AVAudioPlayer!
     var searchResult: SearchResult!
     
@@ -41,7 +42,7 @@ class PlayerPopUpViewController: UIViewController {
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
-        superView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        superView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         coverImageView.layer.masksToBounds = true
         coverImageView.layer.cornerRadius = 8
         configureTrackInfoOutlets()
@@ -63,15 +64,43 @@ class PlayerPopUpViewController: UIViewController {
         }
     }
 
+    //MARK: - PLAYER ACTIONS_________________________________________________________________
+    
+    @IBAction func rewind(_ sender: AnyObject) {
+        var time: TimeInterval = player.currentTime
+        time -= 5.0
+        
+        if time < 0 {
+            return
+        }else {
+            player.currentTime = time
+        }
+    }
+
+    @IBAction func fastForward(_ sender: AnyObject) {
+        var time: TimeInterval = player.currentTime
+        time += 5.0
+        
+        if time > player.duration {
+            return
+        } else {
+            player.currentTime = time
+        }
+    }
+    
     @IBAction func close() {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func playSTOP(_ sender: AnyObject) {
+    @IBAction func pause(_ sender: AnyObject) {
+        if player.isPlaying {
+            player.pause()
+        }
+    }
+    
+    @IBAction func play(_ sender: AnyObject) {
         if !player.isPlaying {
-            let url = URL(string: searchResult.trackDownloadLink)
-            play(url: url!)
-            playBtn = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: nil)
+            player.play()
         }
     }
     
@@ -80,11 +109,21 @@ class PlayerPopUpViewController: UIViewController {
             let soundData = try! Data(contentsOf: url)
             self.player = try AVAudioPlayer(data: soundData)
             player.prepareToPlay()
-            player.volume = 1.0
+            player.volume = 0.10
             player.play()
-            print("!!!!!playing\(url)")
+            
+            Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(PlayerPopUpViewController.updateProgressView), userInfo: nil, repeats: true)
+            progressView.setProgress(Float(player.currentTime/player.duration), animated: false)
+            
+            print("!!!playing\(url)")
         } catch {
             print("Error getting the audio file")
+        }
+    }
+    
+    func updateProgressView(){
+        if player.isPlaying {
+            progressView.setProgress(Float(player.currentTime/player.duration), animated: true)
         }
     }
 }

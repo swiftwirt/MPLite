@@ -39,7 +39,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <progressView opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DAj-D1-DiF">
+                                    <progressView opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DAj-D1-DiF">
                                         <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
@@ -49,21 +49,30 @@
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="efG-7X-7uQ"/>
                                             <barButtonItem systemItem="rewind" id="rcG-p9-hVm">
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <connections>
+                                                    <action selector="rewind:" destination="e9K-n5-EhL" id="6Df-Nk-0ab"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="COi-Ad-bkz"/>
-                                            <barButtonItem systemItem="pause" id="nO5-Nj-wMS">
+                                            <barButtonItem style="plain" systemItem="pause" id="nO5-Nj-wMS">
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="pause:" destination="e9K-n5-EhL" id="Z0W-sE-8M0"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="tLx-Y6-NMk"/>
                                             <barButtonItem systemItem="play" id="Hjl-e2-OAF">
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <connections>
-                                                    <action selector="playSTOP:" destination="e9K-n5-EhL" id="85t-br-gWW"/>
+                                                    <action selector="play:" destination="e9K-n5-EhL" id="tY6-3y-UTk"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="fji-SL-zAt"/>
                                             <barButtonItem systemItem="fastForward" id="Ydc-uE-5gT">
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <connections>
+                                                    <action selector="fastForward:" destination="e9K-n5-EhL" id="Vfb-yG-V9X"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="d6c-Ws-a2o"/>
                                         </items>
