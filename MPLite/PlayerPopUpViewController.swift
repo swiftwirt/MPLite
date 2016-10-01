@@ -17,6 +17,7 @@ class PlayerPopUpViewController: UIViewController {
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var loadingPopUp: UIView!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var loadingLbl: UILabel!
     
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -61,7 +62,12 @@ class PlayerPopUpViewController: UIViewController {
         DispatchQueue.main.async {
             self.play(url: url!)
             self.loadingSpinner.stopAnimating()
-            self.loadingPopUp.isHidden = true
+            UIView.animate(withDuration: 0.3, animations: {
+                self.loadingPopUp.alpha = 0.0
+            })
+            UIView.animate(withDuration: 0.5, animations: {
+                self.loadingLbl.center.y = 1000
+            })
         }
     }
     
