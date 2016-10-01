@@ -16,6 +16,7 @@ class SearchResult {
     var track = ""
     var trackDownloadLink = ""
     var trackStreamURL = ""
+    var trackID = ""
     
     static func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.track.localizedStandardCompare(rhs.track) == .orderedAscending

@@ -54,10 +54,11 @@ class SearchMusicViewController: UIViewController {
             requestURL = URL(string: "https://freemusicarchive.org/recent.json")
             performSearch(URL: requestURL)
         case 2:
-//            requestURL = getURLfrom(searchText: searchBar.text!)
-//            if !hasSearched {
-//                performSearch(URL: requestURL)
-//            }
+            searchBar.becomeFirstResponder()
+            requestURL = getURLfrom(searchText: searchBar.text!)
+            if !hasSearched {
+                performSearch(URL: requestURL)
+            }
             hasSearched = false
             tableView.reloadData()
         default:
@@ -105,8 +106,46 @@ class SearchMusicViewController: UIViewController {
     
     func parseDictionary(dictionary: [String:AnyObject]) -> [SearchResult] {
         guard let array = dictionary["aTracks"] as? [AnyObject] else {
-            print("Expected 'aTracks' array")
-            return []
+            //SPOTIFY
+            guard let tracksDict = dictionary["tracks"] as? [String:AnyObject] else {
+                print("****************Unexpected ERROR\(dictionary)")
+                return []
+            }
+            var searchResults = [SearchResult]()
+            if let itemsDict = tracksDict["items"] as? [AnyObject] {
+            for item in itemsDict  {
+                let searchResult = SearchResult()
+                if let album = item["album"] as? [String:AnyObject] {
+                    if let album = album["name"] as? String {
+                            searchResult.album = album
+                        }
+                    if let image = album["images"] as? [AnyObject] {
+                        if let image = image[2] as? [String:AnyObject] {
+                                searchResult.albumImageLink = image["url"] as! String
+                            }
+                        }
+                    }
+                
+                if let artist = item["artists"] as? [AnyObject] {
+                    for artistName in artist {
+                        if let artist = artistName["name"] as? String {
+                            searchResult.artist = artist
+                        }
+                    }
+                }
+                
+                if let trackName = item["name"] as? String {
+                    searchResult.track = trackName
+                }
+                
+                if let trackPreviewURL = item["preview_url"] as? String {
+                    searchResult.trackDownloadLink = trackPreviewURL
+                }
+                
+                 searchResults.append(searchResult)
+            }
+        }
+            return searchResults
         }
         var searchResults = [SearchResult]()
         for resultDict in array {
@@ -154,17 +193,19 @@ class SearchMusicViewController: UIViewController {
     }
 
     
+    
     func getURLfrom(searchText: String) -> URL {
         let escapedSearchText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let urlString = String(format:
-            "https://SAERCH_API", escapedSearchText!)
+            "https://api.spotify.com/v1/search?q=%@&type=track", escapedSearchText!)
+        print("***Url\(urlString)")
         let url = URL(string: urlString)
         return url!
     }
     
     func showNetworkError() {
         let alert = UIAlertController(title: "Whoops...", message:
-            "There was an error reading from the iTunes Store. Please try again.",
+            "There was a reading error. Please try again.",
             preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
@@ -249,4 +290,5 @@ extension SearchMusicViewController: UISearchBarDelegate {
         return .topAttached
     }
 }
+
 
