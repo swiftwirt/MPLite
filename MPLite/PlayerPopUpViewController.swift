@@ -15,6 +15,8 @@ class PlayerPopUpViewController: UIViewController {
     
     @IBOutlet var superView: UIView!
     @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var loadingPopUp: UIView!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -39,10 +41,14 @@ class PlayerPopUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10
+        loadingPopUp.layer.cornerRadius = 10
+        loadingSpinner.startAnimating()
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlayerPopUpViewController.close))
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
+        
         superView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         coverImageView.layer.masksToBounds = true
         coverImageView.layer.cornerRadius = 8
@@ -52,7 +58,11 @@ class PlayerPopUpViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let url = URL(string: searchResult.trackDownloadLink)
-        self.play(url: url!)
+        DispatchQueue.main.async {
+            self.play(url: url!)
+            self.loadingSpinner.stopAnimating()
+            self.loadingPopUp.isHidden = true
+        }
     }
     
     func configureTrackInfoOutlets() {
@@ -153,7 +163,8 @@ extension PlayerPopUpViewController: UIGestureRecognizerDelegate {
 extension PlayerPopUpViewController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         close()
-        print("&&&")
     }
+    
+    
 }
 

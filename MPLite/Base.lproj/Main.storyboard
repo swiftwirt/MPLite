@@ -83,6 +83,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Keu-Fv-Qx9" userLabel="Loading PopUp">
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Uqh-kl-q7y">
+                                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Uqh-kl-q7y" firstAttribute="centerY" secondItem="Keu-Fv-Qx9" secondAttribute="centerY" id="RRz-8i-G35"/>
+                                            <constraint firstItem="Uqh-kl-q7y" firstAttribute="centerX" secondItem="Keu-Fv-Qx9" secondAttribute="centerX" id="Vwr-bB-Isu"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -96,17 +109,21 @@
                                     <constraint firstItem="DAj-D1-DiF" firstAttribute="leading" secondItem="OcG-Y2-j6P" secondAttribute="leading" constant="11" id="Lpq-5u-BcD"/>
                                     <constraint firstItem="wWp-Qu-MH5" firstAttribute="leading" secondItem="OcG-Y2-j6P" secondAttribute="leadingMargin" id="MJc-pv-uaR"/>
                                     <constraint firstItem="pas-oM-jkr" firstAttribute="top" secondItem="DAj-D1-DiF" secondAttribute="bottom" constant="8" symbolic="YES" id="N7f-zV-8MJ"/>
+                                    <constraint firstItem="Keu-Fv-Qx9" firstAttribute="centerY" secondItem="DAj-D1-DiF" secondAttribute="centerY" id="NdJ-5W-h54"/>
                                     <constraint firstItem="2Ia-kf-O8x" firstAttribute="top" secondItem="wWp-Qu-MH5" secondAttribute="bottom" constant="6" id="SSK-rl-gE1"/>
                                     <constraint firstItem="hPo-D8-nip" firstAttribute="centerX" secondItem="DAj-D1-DiF" secondAttribute="centerX" id="USv-9e-phn"/>
+                                    <constraint firstItem="Keu-Fv-Qx9" firstAttribute="trailing" secondItem="2Ia-kf-O8x" secondAttribute="trailing" id="XgP-I1-Fb0"/>
                                     <constraint firstAttribute="trailing" secondItem="2Ia-kf-O8x" secondAttribute="trailing" id="adG-fc-vjN"/>
                                     <constraint firstAttribute="width" constant="240" id="atF-M3-7gm"/>
                                     <constraint firstItem="2Ia-kf-O8x" firstAttribute="top" secondItem="pas-oM-jkr" secondAttribute="bottom" constant="31" id="gF9-Lu-eid"/>
                                     <constraint firstItem="DAj-D1-DiF" firstAttribute="top" secondItem="hPo-D8-nip" secondAttribute="bottom" constant="15" id="gjl-yJ-6mK"/>
+                                    <constraint firstItem="Keu-Fv-Qx9" firstAttribute="leading" secondItem="2Ia-kf-O8x" secondAttribute="leading" id="gwu-DQ-Oak"/>
                                     <constraint firstAttribute="trailing" secondItem="wWp-Qu-MH5" secondAttribute="trailing" constant="10" id="ii5-ZK-J4F"/>
                                     <constraint firstItem="pas-oM-jkr" firstAttribute="leading" secondItem="OcG-Y2-j6P" secondAttribute="leading" constant="7" id="kE0-Ja-5im"/>
                                     <constraint firstItem="DAj-D1-DiF" firstAttribute="centerX" secondItem="2Ia-kf-O8x" secondAttribute="centerX" id="lDq-uk-G9K"/>
                                     <constraint firstItem="2Ia-kf-O8x" firstAttribute="leading" secondItem="OcG-Y2-j6P" secondAttribute="leading" id="msv-BE-GwO"/>
                                     <constraint firstItem="hPo-D8-nip" firstAttribute="top" secondItem="OcG-Y2-j6P" secondAttribute="top" constant="4" id="nfn-p3-XqU"/>
+                                    <constraint firstItem="Keu-Fv-Qx9" firstAttribute="top" secondItem="mlY-tQ-bB9" secondAttribute="top" id="p2E-Ij-qBf"/>
                                     <constraint firstItem="DAj-D1-DiF" firstAttribute="top" secondItem="mlY-tQ-bB9" secondAttribute="bottom" constant="97" id="uAp-fW-ANq"/>
                                     <constraint firstItem="wWp-Qu-MH5" firstAttribute="top" secondItem="DAj-D1-DiF" secondAttribute="bottom" constant="33" id="yK3-oh-Mcn"/>
                                 </constraints>
@@ -126,6 +143,8 @@
                         <outlet property="artistLabel" destination="wWp-Qu-MH5" id="8SL-4E-EN5"/>
                         <outlet property="coverImageView" destination="hPo-D8-nip" id="33d-Wr-uoo"/>
                         <outlet property="fastforvard" destination="Ydc-uE-5gT" id="M62-Mv-nAa"/>
+                        <outlet property="loadingPopUp" destination="Keu-Fv-Qx9" id="Uzr-2Y-cVP"/>
+                        <outlet property="loadingSpinner" destination="Uqh-kl-q7y" id="oKl-XS-8RH"/>
                         <outlet property="playBtn" destination="Hjl-e2-OAF" id="ZTr-mi-Ra4"/>
                         <outlet property="popupView" destination="OcG-Y2-j6P" id="C84-be-RIW"/>
                         <outlet property="progressView" destination="DAj-D1-DiF" id="q4A-Bp-pAp"/>
@@ -250,9 +269,9 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="22w-es-ORm">
                                 <color key="backgroundColor" red="1" green="1" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <segments>
-                                    <segment title="🏅 Top Rated"/>
-                                    <segment title="🔥 Recent"/>
-                                    <segment title="👀 Results"/>
+                                    <segment title="Top Rated"/>
+                                    <segment title="Recent"/>
+                                    <segment title="Results"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -287,7 +306,7 @@
     </scenes>
     <resources>
         <image name="CloseButton" width="15" height="15"/>
-        <image name="placeholder" width="112" height="112"/>
+        <image name="placeholder" width="100" height="100"/>
         <image name="playPAUSE" width="128" height="128"/>
     </resources>
 </document>

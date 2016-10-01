@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a5S-aS-uKk" id="GSi-HA-Tj8">
-                <frame key="frameInset" width="375" height="79.5"/>
+                <frame key="frameInset" width="375" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzw-9c-vO9">
@@ -36,6 +36,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="nothingFound" width="360" height="360"/>
+        <image name="nothingFound" width="120" height="120"/>
     </resources>
 </document>

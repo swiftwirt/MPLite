@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D078C81D1DA023890017F381 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = D078C81C1DA023890017F381 /* placeholder.png */; };
+		D078C81F1DA0259F0017F381 /* nothingFound.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D078C81E1DA0259F0017F381 /* nothingFound.jpeg */; };
 		D0AFA5141D9DA17C0009614E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AFA5131D9DA17C0009614E /* AppDelegate.swift */; };
 		D0AFA5191D9DA17C0009614E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA5171D9DA17C0009614E /* Main.storyboard */; };
 		D0AFA51B1D9DA17C0009614E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA51A1D9DA17C0009614E /* Assets.xcassets */; };
 		D0AFA51E1D9DA17D0009614E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA51C1D9DA17D0009614E /* LaunchScreen.storyboard */; };
 		D0AFA5271D9DA1D10009614E /* SearchMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AFA5251D9DA1D10009614E /* SearchMusicViewController.swift */; };
 		D0AFA5281D9DA1D10009614E /* PlayerPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AFA5261D9DA1D10009614E /* PlayerPopUpViewController.swift */; };
-		D0AFA52F1D9DA3160009614E /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA5291D9DA3160009614E /* placeholder.png */; };
 		D0AFA5301D9DA3160009614E /* playPAUSE.png in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA52A1D9DA3160009614E /* playPAUSE.png */; };
-		D0AFA5311D9DA3160009614E /* nothingFound.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA52B1D9DA3160009614E /* nothingFound.jpeg */; };
 		D0AFA5321D9DA3160009614E /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA52C1D9DA3160009614E /* CloseButton.png */; };
 		D0AFA5331D9DA3160009614E /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA52D1D9DA3160009614E /* CloseButton@2x.png */; };
 		D0AFA5341D9DA3160009614E /* CloseButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0AFA52E1D9DA3160009614E /* CloseButton@3x.png */; };
@@ -27,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D078C81C1DA023890017F381 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		D078C81E1DA0259F0017F381 /* nothingFound.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nothingFound.jpeg; sourceTree = "<group>"; };
 		D0AFA5101D9DA17C0009614E /* MPLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AFA5131D9DA17C0009614E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0AFA5181D9DA17C0009614E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,9 +37,7 @@
 		D0AFA51F1D9DA17D0009614E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AFA5251D9DA1D10009614E /* SearchMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchMusicViewController.swift; sourceTree = "<group>"; };
 		D0AFA5261D9DA1D10009614E /* PlayerPopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPopUpViewController.swift; sourceTree = "<group>"; };
-		D0AFA5291D9DA3160009614E /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		D0AFA52A1D9DA3160009614E /* playPAUSE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playPAUSE.png; sourceTree = "<group>"; };
-		D0AFA52B1D9DA3160009614E /* nothingFound.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nothingFound.jpeg; sourceTree = "<group>"; };
 		D0AFA52C1D9DA3160009614E /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
 		D0AFA52D1D9DA3160009614E /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
 		D0AFA52E1D9DA3160009614E /* CloseButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@3x.png"; sourceTree = "<group>"; };
@@ -98,12 +98,12 @@
 		D0AFA5351D9DA31C0009614E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				D0AFA5291D9DA3160009614E /* placeholder.png */,
 				D0AFA52A1D9DA3160009614E /* playPAUSE.png */,
-				D0AFA52B1D9DA3160009614E /* nothingFound.jpeg */,
 				D0AFA52D1D9DA3160009614E /* CloseButton@2x.png */,
 				D0AFA52C1D9DA3160009614E /* CloseButton.png */,
+				D078C81C1DA023890017F381 /* placeholder.png */,
 				D0AFA52E1D9DA3160009614E /* CloseButton@3x.png */,
+				D078C81E1DA0259F0017F381 /* nothingFound.jpeg */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -168,16 +168,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0AFA5311D9DA3160009614E /* nothingFound.jpeg in Resources */,
 				D0AFA5331D9DA3160009614E /* CloseButton@2x.png in Resources */,
 				D0AFA51E1D9DA17D0009614E /* LaunchScreen.storyboard in Resources */,
 				D0AFA5341D9DA3160009614E /* CloseButton@3x.png in Resources */,
 				D0AFA5321D9DA3160009614E /* CloseButton.png in Resources */,
 				D0AFA5391D9DA3910009614E /* LoadingCell.xib in Resources */,
-				D0AFA52F1D9DA3160009614E /* placeholder.png in Resources */,
 				D0AFA5301D9DA3160009614E /* playPAUSE.png in Resources */,
 				D0AFA51B1D9DA17C0009614E /* Assets.xcassets in Resources */,
+				D078C81F1DA0259F0017F381 /* nothingFound.jpeg in Resources */,
 				D0AFA5381D9DA3910009614E /* NothingFoundCell.xib in Resources */,
+				D078C81D1DA023890017F381 /* placeholder.png in Resources */,
 				D0AFA5191D9DA17C0009614E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
