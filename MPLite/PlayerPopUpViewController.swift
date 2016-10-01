@@ -109,6 +109,7 @@ class PlayerPopUpViewController: UIViewController {
         do {
             let soundData = try! Data(contentsOf: url)
             self.player = try AVAudioPlayer(data: soundData)
+            self.player.delegate = self
             player.prepareToPlay()
             player.volume = 1.0
             player.play()
@@ -116,7 +117,7 @@ class PlayerPopUpViewController: UIViewController {
             progressTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(PlayerPopUpViewController.updateProgressView), userInfo: nil, repeats: true)
             progressView.setProgress(Float(player.currentTime/player.duration), animated: false)
             
-            print("!!!playing\(url)")
+            print("!!!playing\(url)+++\(progressView.description)")
         } catch {
             print("Error getting the audio file")
         }
@@ -131,6 +132,7 @@ class PlayerPopUpViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         progressTimer.invalidate()
+        player.delegate = nil
     }
 }
 
@@ -147,3 +149,11 @@ extension PlayerPopUpViewController: UIGestureRecognizerDelegate {
         return (touch.view === self.view)
     }
 }
+
+extension PlayerPopUpViewController: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        close()
+        print("&&&")
+    }
+}
+

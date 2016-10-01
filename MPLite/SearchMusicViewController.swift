@@ -120,7 +120,7 @@ class SearchMusicViewController: UIViewController {
                             searchResult.album = album
                         }
                     if let image = album["images"] as? [AnyObject] {
-                        if let image = image[2] as? [String:AnyObject] {
+                        if let image = image[1] as? [String:AnyObject] {
                                 searchResult.albumImageLink = image["url"] as! String
                             }
                         }
