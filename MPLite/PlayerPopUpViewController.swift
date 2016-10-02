@@ -129,7 +129,7 @@ class PlayerPopUpViewController: UIViewController {
                     self.loadingPopUp.backgroundColor = UIColor.clear
                 })
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.loadingLbl.center.y = 300
+                    self.loadingLbl.center.y = 1000
                 })
                 if self.searchResult.isFromSearchSegment {
                     UIView.animate(withDuration: 0.3, animations: {

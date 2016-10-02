@@ -180,7 +180,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="OcG-Y2-j6P" firstAttribute="centerX" secondItem="ERy-RD-haZ" secondAttribute="centerX" id="2S0-nw-FS3"/>
                             <constraint firstItem="OcG-Y2-j6P" firstAttribute="centerX" secondItem="ERy-RD-haZ" secondAttribute="centerX" id="JNC-fR-p0i"/>
