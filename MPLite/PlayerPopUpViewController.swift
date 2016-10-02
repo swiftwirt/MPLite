@@ -28,6 +28,12 @@ class PlayerPopUpViewController: UIViewController {
     @IBOutlet weak var rewind: UIBarButtonItem!
     @IBOutlet weak var fastforvard: UIBarButtonItem!
 
+    @IBOutlet weak var timerLbl: UILabel!
+    @IBOutlet weak var timeLbl: UILabel!
+    @IBOutlet weak var searchMessageLbl: UILabel!
+    @IBOutlet weak var searchMessageView: UIView!
+    
+    
     var player: AVAudioPlayer!
     var searchResult: SearchResult!
     
@@ -43,7 +49,17 @@ class PlayerPopUpViewController: UIViewController {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10
         loadingPopUp.layer.cornerRadius = 10
-        loadingSpinner.startAnimating()
+        loadingPopUp.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        loadingPopUp.isHidden = true
+        searchMessageView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        searchMessageView.isHidden = true
+        
+        if !searchResult.isFromSearchSegment {
+            searchMessageView.alpha = 0.0
+            searchMessageLbl.alpha = 0.0
+            timeLbl.alpha = 0.0
+            timerLbl.alpha = 0.0
+        }
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlayerPopUpViewController.close))
         gestureRecognizer.cancelsTouchesInView = false
@@ -54,21 +70,6 @@ class PlayerPopUpViewController: UIViewController {
         coverImageView.layer.masksToBounds = true
         coverImageView.layer.cornerRadius = 8
         configureTrackInfoOutlets()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let url = URL(string: searchResult.trackDownloadLink)
-        DispatchQueue.main.async {
-            self.play(url: url!)
-            self.loadingSpinner.stopAnimating()
-            UIView.animate(withDuration: 0.3, animations: {
-                self.loadingPopUp.alpha = 0.0
-            })
-            UIView.animate(withDuration: 0.5, animations: {
-                self.loadingLbl.center.y = 200
-            })
-        }
     }
     
     func configureTrackInfoOutlets() {
@@ -116,8 +117,30 @@ class PlayerPopUpViewController: UIViewController {
     }
     
     @IBAction func play(_ sender: AnyObject) {
+        guard let player = player else {
+            let url = URL(string: searchResult.trackDownloadLink)
+            loadingPopUp.isHidden = false
+            loadingSpinner.startAnimating()
+            DispatchQueue.main.async {
+                self.play(url: url!)
+                self.loadingSpinner.stopAnimating()
+                self.loadingSpinner.isHidden = true
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.loadingPopUp.backgroundColor = UIColor.clear
+                })
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.loadingLbl.center.y = 300
+                })
+                if self.searchResult.isFromSearchSegment {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.searchMessageView.isHidden = false
+                    })
+                }
+            }
+            return
+        }
         if !player.isPlaying {
-            player.play()
+           player.play()
         }
     }
     
@@ -133,22 +156,28 @@ class PlayerPopUpViewController: UIViewController {
             progressTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(PlayerPopUpViewController.updateProgressView), userInfo: nil, repeats: true)
             progressView.setProgress(Float(player.currentTime/player.duration), animated: false)
             
-            print("!!!playing\(url)+++\(progressView.description)")
+            print("***playing\(url)+++\(progressView.description)")
         } catch {
-            print("Error getting the audio file")
+            print("***Error getting the audio file")
         }
     }
     
     func updateProgressView(){
         if player.isPlaying {
             progressView.setProgress(Float(player.currentTime/player.duration), animated: true)
+            let timerString = String(format: "%.0f", player.duration - player.currentTime)
+            timerLbl.text = timerString
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        progressTimer.invalidate()
-        player.delegate = nil
+       
+        if let player = player {
+            progressTimer.invalidate()
+            player.delegate = nil
+        }
+        
     }
 }
 
@@ -170,7 +199,5 @@ extension PlayerPopUpViewController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         close()
     }
-    
-    
 }
 

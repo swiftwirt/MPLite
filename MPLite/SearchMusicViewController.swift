@@ -77,9 +77,11 @@ class SearchMusicViewController: UIViewController {
             data, response, error in
             
             if let error = error {
-                print("Failure! \(error)")
+                self.isLoading = false
+                self.showNetworkError()
+                print("***Failure! \(error)")
             } else {
-                print("Success! \(response!)")
+                print("***Success! \(response!)")
                 if let data = data, let dictionary = self.parseJSON(data: data) {
                     self.searchResults = self.parseDictionary(dictionary: dictionary)
                     self.searchResults.sort(by: <)
@@ -99,7 +101,7 @@ class SearchMusicViewController: UIViewController {
             return try JSONSerialization.jsonObject(
                 with: data, options: []) as? [String: AnyObject]
         } catch {
-            print("JSON Error: \(error)")
+            print("***JSON Error: \(error)")
             return nil
         }
     }
@@ -108,7 +110,7 @@ class SearchMusicViewController: UIViewController {
         guard let array = dictionary["aTracks"] as? [AnyObject] else {
             //SPOTIFY
             guard let tracksDict = dictionary["tracks"] as? [String:AnyObject] else {
-                print("****************Unexpected ERROR\(dictionary)")
+                print("***Unexpected ERROR\(dictionary)")
                 return []
             }
             var searchResults = [SearchResult]()
@@ -141,8 +143,8 @@ class SearchMusicViewController: UIViewController {
                 if let trackPreviewURL = item["preview_url"] as? String {
                     searchResult.trackDownloadLink = trackPreviewURL
                 }
-                
-                 searchResults.append(searchResult)
+                searchResult.isFromSearchSegment = true
+                searchResults.append(searchResult)
             }
         }
             return searchResults
@@ -154,34 +156,34 @@ class SearchMusicViewController: UIViewController {
                  searchResult.album = searchResultNonOpt
             } else {
                 searchResult.album = "Unknown"
-                print("No album")
+                print("***No album")
             }
             if let searchResultNonOpt = resultDict["artist_name"] as? String {
                 searchResult.artist = searchResultNonOpt
             } else {
                 searchResult.artist = "No info"
-                print("No artist")
+                print("***No artist")
             }
             if let searchResultNonOpt = resultDict["track_title"] as? String {
                 searchResult.track = searchResultNonOpt
             } else {
                 searchResult.track = "Unknown"
-                print("No track")
+                print("***No track")
             }
             if let searchResultNonOpt = resultDict["track_file_url"] as? String {
                 searchResult.trackDownloadLink = searchResultNonOpt
             } else {
-                print("No download url")
+                print("***No download url")
             }
             if let searchResultNonOpt = resultDict["track_url"] as? String {
                 searchResult.trackStreamURL = searchResultNonOpt
             } else {
-                print("No download url")
+                print("***No download url")
             }
             if let searchResultNonOpt = resultDict["album_image_file"] as? String {
                 searchResult.albumImageLink += searchResultNonOpt
             } else {
-                print("No image url")
+                print("***No image url")
                 if let searchResultNonOpt = resultDict["track_image_file"] as? String {
                     searchResult.albumImageLink = searchResultNonOpt
                 }
@@ -205,9 +207,11 @@ class SearchMusicViewController: UIViewController {
     
     func showNetworkError() {
         let alert = UIAlertController(title: "Whoops...", message:
-            "There was a reading error. Please try again.",
+            "There was a reading error. Please check-up your internet connection and  try again.",
             preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let action = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.tableView.reloadData()
+        })
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
@@ -217,7 +221,8 @@ class SearchMusicViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {
             let controller = segue.destination as! PlayerPopUpViewController
-            let indexPath = IndexPath(row: (sender! as AnyObject).tag!, section: 0)
+            let cell = sender as! TrackCell
+            let indexPath = tableView.indexPath(for: cell)!
             controller.searchResult = searchResults[indexPath.row]
         }
     }
@@ -254,7 +259,6 @@ extension SearchMusicViewController: UITableViewDataSource {
             cell.albumLabel.text = searchResult.album
             cell.artistLabel.text = searchResult.artist
             cell.trackLabel.text = searchResult.track
-            cell.playBtn.tag = indexPath.row
             cell.configureImageForSearchResult(searchResult: searchResult)
             return cell
         }
@@ -270,10 +274,6 @@ extension SearchMusicViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
     }
-    
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil
-    }
 }
 
 extension SearchMusicViewController: UISearchBarDelegate {
@@ -283,7 +283,7 @@ extension SearchMusicViewController: UISearchBarDelegate {
         performSearch(URL: url)
         hasSearched = true
         segmentedControl.selectedSegmentIndex = 2
-        print("The search text is: '\(searchBar.text!)'")
+        print("***The search text is: '\(searchBar.text!)'")
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {

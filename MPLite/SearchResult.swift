@@ -17,6 +17,7 @@ class SearchResult {
     var trackDownloadLink = ""
     var trackStreamURL = ""
     var trackID = ""
+    var isFromSearchSegment = false
     
     static func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.track.localizedStandardCompare(rhs.track) == .orderedAscending
