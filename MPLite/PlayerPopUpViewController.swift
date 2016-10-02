@@ -66,7 +66,7 @@ class PlayerPopUpViewController: UIViewController {
                 self.loadingPopUp.alpha = 0.0
             })
             UIView.animate(withDuration: 0.5, animations: {
-                self.loadingLbl.center.y = 1000
+                self.loadingLbl.center.y = 200
             })
         }
     }
